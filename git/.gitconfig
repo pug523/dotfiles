@@ -11,7 +11,14 @@
 [core]
 	editor = vim
 	symlinks = true
+	pager = delta
 [gpg]
 	program = /usr/sbin/gpg
 [commit]
 	gpgsign = true
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[merge]
+	conflictstyle = zdiff3
