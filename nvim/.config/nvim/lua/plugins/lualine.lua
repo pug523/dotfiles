@@ -19,17 +19,23 @@ local colors = {
   MAGENTA = "#d360aa", -- Deep magenta
   BLUE = "#4f9cff", -- Light-medium blue
   RED = "#ff3344", -- Strong red
+
+  SKYBLUE = "#3f97fc",
+  DEEPGREEN = "#00aa55",
+  BRIGHTYELLOW = "#f0d420",
+  ASH = "#d7e4fa",
+  LIGHTGRAY = "#cecece",
 }
 
 -- Function to get the color associated with the current mode in Vim
 local function get_mode_color()
   -- Define a table mapping modes to their associated colors
   local mode_color = {
-    n = colors.DARKBLUE,
-    i = colors.VIOLET,
-    v = colors.RED,
+    n = colors.SKYBLUE,
+    i = colors.DEEPGREEN,
+    v = colors.BRIGHTYELLOW,
     -- [""] = colors.BLUE,
-    V = colors.RED,
+    V = colors.BRIGHTYELLOW,
     c = colors.MAGENTA,
     no = colors.RED,
     s = colors.ORANGE,
@@ -44,7 +50,7 @@ local function get_mode_color()
     rm = colors.CYAN,
     ["r?"] = colors.CYAN,
     ["!"] = colors.RED,
-    t = colors.RED,
+    t = colors.ASH,
     nt = colors.YELLOW,
   }
   -- Return the opposite color, or fallback to foreground color
@@ -64,6 +70,11 @@ local function get_opposite_color(mode_color)
     [colors.VIOLET] = colors.GREEN,
     [colors.YELLOW] = colors.RED,
     [colors.DARKBLUE] = colors.VIOLET,
+
+    [colors.SKYBLUE] = colors.ASH,
+    [colors.DEEPGREEN] = colors.ASH,
+    [colors.BRIGHTYELLOW] = colors.ASH,
+    [colors.ASH] = colors.ASH,
   }
   -- Return the opposite color, or fallback to foreground color
   return opposite_colors[mode_color] or colors.FG
@@ -226,7 +237,8 @@ math.randomseed(os.time())
 local function create_separator(side, use_mode_color)
   return {
     function()
-      return side == "left" and "" or "" -- Choose separator symbol based on side
+      -- return side == "left" and "" or "" -- Choose separator symbol based on side
+      return side == "left" and "" or ""
     end,
     color = function()
       -- Set color based on mode or opposite color
@@ -269,7 +281,7 @@ local function mode()
     v = "Visual", -- Visual mode
     [""] = "VisualBlock", -- Visual block mode
     V = "VisualLine", -- Visual line mode
-    c = "CommandLine", -- Command-line mode
+    c = "Command", -- Command-line mode
     no = "NInsert", -- NInsert mode
     s = "Select", -- Select mode
     S = "SelectLine", -- Select line mode
@@ -296,6 +308,7 @@ end
 local config = {
   options = {
     component_separators = "",
+    globalstatus = true,
     section_separators = "",
     theme = {
       normal = {
@@ -378,7 +391,13 @@ ins_left({
 
 ins_left(create_separator("right"))
 
-ins_left(create_mode_based_component("filename", nil, colors.BG))
+-- ins_left(create_mode_based_component("filename", nil, colors.BG))
+ins_left(create_mode_based_component(function()
+  if vim.bo.buftype == "" then
+    return vim.fn.expand("%:t")
+  end
+  return vim.bo.filetype
+end, nil, colors.BG))
 
 ins_left(create_separator("left"))
 
@@ -425,7 +444,33 @@ ins_left({
   },
 })
 
+ins_left({
+  "diagnostics",
+  symbols = {
+    error = " ",
+    warn = " ",
+    info = " ",
+    hint = " ",
+  },
+})
+
 -- RIGHT
+
+ins_right({ "encoding" })
+
+ins_right(create_separator("right"))
+
+ins_right(create_mode_based_component(function()
+  if vim.bo.buftype == "" then
+    return vim.bo.filetype
+  end
+  return ""
+end, nil, colors.BG))
+
+ins_right(create_separator("left"))
+
+ins_right({ "fileformat" })
+
 ins_right({
   function()
     local reg = vim.fn.reg_recording()
@@ -465,7 +510,7 @@ ins_right({
 ins_right({
   function()
     local msg = "No Active Lsp"
-    local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+    local buf_ft = vim.api.nvim_buf_get_option_value("filetype", { buf = 0 })
     local clients = vim.lsp.get_clients()
     if next(clients) == nil then
       return msg
@@ -583,6 +628,49 @@ ins_right(create_separator("right"))
 ins_right(create_mode_based_component("progress", nil, colors.BG))
 
 require("lualine").setup(config)
+vim.opt.showmode = false
+
+-- local another_config = {
+--   options = {
+--     component_separators = {},
+--     section_separators = {},
+--   },
+--   sections = {
+--     lualine_a = { "filename" },
+--     lualine_b = { "branch" },
+--     lualine_c = {
+--       "'%='",
+--       {
+--         "diff",
+--         symbols = { added = " ", modified = " ", removed = " " },
+--         separator = "  |  ",
+--       },
+--       {
+--         "diagnostics",
+--         symbols = {
+--           error = " ",
+--           warn = " ",
+--           info = " ",
+--           hint = " ",
+--         },
+--       },
+--     },
+--     lualine_x = { "encoding", "fileformat" },
+--     lualine_y = { "filetype", "searchcount" },
+--     lualine_z = {},
+--   },
+--   inactive_sections = {
+--     lualine_a = {},
+--     lualine_b = {},
+--     lualine_c = {},
+--     lualine_x = {},
+--     lualine_y = {},
+--     lualine_z = {},
+--   },
+-- }
+
+-- require("lualine").setup(another_config)
+
 -- require("lualine").setup({})
 
 -- require("lualine").setup({
