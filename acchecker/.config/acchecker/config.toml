@@ -1,0 +1,4 @@
+[profiles.default]
+contest = "abc458"
+problem = "a"
+lang = "rust"

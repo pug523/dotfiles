@@ -1,0 +1,17 @@
+[user]
+	email = pugurmc@gmail.com
+	name = pugur
+	signingkey = 73D2CA77B0C28F41
+[init]
+	defaultBranch = main
+[sequenc]
+	editor = nvim
+[sequence]
+	editor = nvim
+[core]
+	editor = vim
+	symlinks = true
+[gpg]
+	program = /usr/sbin/gpg
+[commit]
+	gpgsign = true
