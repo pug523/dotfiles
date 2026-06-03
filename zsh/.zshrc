@@ -164,6 +164,10 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
   ssh-add $HOME/.ssh/id_ed25519 >/dev/null 2>&1
 fi
 
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview 'bat --border=rounded --color=always --line-range :500 {}'"
+
 # alias vim='nvim'
 
 export PATH="$HOME/.local/bin:$PATH"
