@@ -4,10 +4,8 @@
 	signingkey = 73D2CA77B0C28F41
 [init]
 	defaultBranch = main
-[sequenc]
-	editor = nvim
 [sequence]
-	editor = nvim
+	editor = vim
 [core]
 	editor = vim
 	symlinks = true
