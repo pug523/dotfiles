@@ -422,6 +422,15 @@ ins_left({
   cond = hide_in_width,
 })
 
+ins_left(create_separator("right"))
+ins_left(create_separator("left"))
+
+ins_left({
+  "diff",
+  symbols = { added = " ", modified = " ", removed = " " },
+  separator = "  |  ",
+})
+
 -- for _, icons in pairs(icon_sets_list) do
 --   ins_left({
 --     function()

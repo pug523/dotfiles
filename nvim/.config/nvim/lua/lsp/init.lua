@@ -34,6 +34,7 @@ lsp.config("*", {
 
 local lsp_servers = {
   "clangd",
+  "jdtls",
   "lua_ls",
   "rust_analyzer",
   "pyright",
@@ -41,6 +42,7 @@ local lsp_servers = {
 }
 
 require("lsp.clangd")
+require("lsp.jdtls")
 require("lsp.lua_ls")
 
 lsp.enable(lsp_servers)
