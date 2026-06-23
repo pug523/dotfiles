@@ -3,6 +3,15 @@ local workspace_path = home .. "/.local/share/nvim/jdtls-workspace/"
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = workspace_path .. project_name
 
+local root_files = {
+  "settings.gradle",
+  "settings.gradle.kts",
+  "build.gradle",
+  "build.gradle.kts",
+  "pom.xml",
+  ".git",
+}
+
 vim.lsp.config["jdtls"] = {
   cmd = {
     "jdtls",
@@ -16,30 +25,41 @@ vim.lsp.config["jdtls"] = {
     "--jvm-arg=-XX:+UseStringDeduplication",
   },
 
+  root_dir = vim.fs.dirname(vim.fs.find(root_files, { upward = true })[1]),
   settings = {
     java = {
       signatureHelp = { enabled = true },
       contentProvider = { preferred = "fernflower" }, -- decompile
 
       format = {
-        enabled = false,
-        -- comments = {
-        --   enabled = false,
-        -- },
-        -- settings = {
-        --   url = "",
-        --   profile = "GoogleStyle",
-        --   ["org.eclipse.jdt.core.formatter.lineSplit"] = "300",
-        --   ["org.eclipse.jdt.core.formatter.comment.line_length"] = "300",
-
-        --   ["org.eclipse.jdt.core.formatter.comment.format_header"] = "false",
-        --   ["org.eclipse.jdt.core.formatter.comment.format_source_code"] = "false",
-        -- },
+        enabled = true,
+        settings = {
+          url = (function()
+            local buf_name = vim.api.nvim_buf_get_name(0)
+            local root_files = vim.fs.find({
+              "java_format.xml",
+              "eclipse-formatter.xml",
+              "eclipse-java-style.xml",
+            }, {
+              upward = true,
+              path = vim.fs.dirname(buf_name),
+            })
+            if #root_files > 0 then
+              return root_files[1]
+            end
+            return nil
+          end)(),
+          profile = "Default",
+        },
       },
 
       formatter = {
         insertSpaces = true,
         tabSize = 4,
+      },
+
+      configuration = {
+        updateBuildConfiguration = "automatic",
       },
 
       -- import filter for minecraft sources

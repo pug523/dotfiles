@@ -34,6 +34,7 @@ lsp.config("*", {
 
 local lsp_servers = {
   "clangd",
+  "glsl_analyzer",
   "jdtls",
   "lua_ls",
   "rust_analyzer",
@@ -42,6 +43,7 @@ local lsp_servers = {
 }
 
 require("lsp.clangd")
+require("lsp.glsl_analyzer")
 require("lsp.jdtls")
 require("lsp.lua_ls")
 

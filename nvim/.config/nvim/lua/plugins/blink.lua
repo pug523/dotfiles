@@ -8,6 +8,7 @@ function setup()
   cmp.build():pwait()
   cmp.setup({
     fuzzy = { implementation = "prefer_rust_with_warning" },
+    keymap = { preset = "super-tab" },
   })
 end
 

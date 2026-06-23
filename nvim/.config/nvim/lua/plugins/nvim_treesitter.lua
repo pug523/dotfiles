@@ -7,6 +7,7 @@ local options = {
     "cmake",
     "cpp",
     -- "fish",
+    "glsl",
     "go",
     -- "gomod",
     -- "gosum",
@@ -46,6 +47,10 @@ vim.filetype.add({
 
 vim.treesitter.language.register("rust", { "alcy", "alcf" })
 -- vim.treesitter.language.register("cpp")
+vim.treesitter.language.register(
+  "glsl",
+  { "vsh", "fsh", "vert", "frag", "geom", "comp" }
+)
 
 require("nvim-treesitter.config").setup(options)
 require("nvim-treesitter").setup({})

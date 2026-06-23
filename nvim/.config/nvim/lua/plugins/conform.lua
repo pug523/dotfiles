@@ -5,7 +5,7 @@ require("conform").setup({
     c = { "clang-format" },
     cpp = { "clang-format" },
     go = { "gofumpt", "goimports-reviser", "golines" },
-    -- java = { "google-java-format" },
+    java = { "lsp" },
     python = { "isort", "black" },
     rust = { "rustfmt" },
     zig = { "zigfmt" },

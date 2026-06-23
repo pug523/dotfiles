@@ -6,7 +6,7 @@ local setup_async = true
 
 require("options")
 
--- call `style` before `plugins` for some plugins that checks vim.g.color_scheme
+-- call `style` before `plugins` for some plugins that checks vim.g.color_scheme (e.g. lualine)
 require("style")
 require("mappings")
 
