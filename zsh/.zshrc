@@ -21,9 +21,10 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
 fi
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 
+fpath=(~/.zsh/completions $fpath)
+zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
 
 autoload -Uz compinit
 compinit
@@ -31,8 +32,20 @@ compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
+autoload -U +X bashcompinit && bashcompinit
+if type gh &>/dev/null; then
+    eval "$(gh completion -s zsh)"
+fi
+
+if type nomad &>/dev/null; then
+    complete -o nospace -C /usr/bin/nomad nomad
+fi
+
+source ~/.local/share/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -53,11 +66,6 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-### End of Zinit's installer chunk
-source ~/.local/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #
 # ~/.bashrc
 #
@@ -165,6 +173,8 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+eval "$(zoxide init --cmd cd zsh)"
+
 if [ -z "$SSH_AUTH_SOCK" ]; then
   eval "$(ssh-agent -s)" >/dev/null 2>&1
   ssh-add $HOME/.ssh/id_ed25519 >/dev/null 2>&1
@@ -183,9 +193,9 @@ export DISPLAY=":0"
 export TIMEFMT="%J: %*Es total (%P cpu) - max RSS %M KB"
 export TIMEFORMAT="%3Rs total (%P%% cpu)"
 
-eval "$(zoxide init --cmd cd zsh)"
 
 source ~/.local/wnoti/wn.sh
+source ~/.local/scripts/c2p.sh
 
 
 # pre
@@ -201,3 +211,21 @@ addpatha () {
 addpatha ~/.xmake/bin
 
 addpatha ~/.local/zig-x86_64-linux-*
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/nomad nomad
+
+export LDFLAGS="-fuse-ld=lld"
+
+export MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA
+# export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/dzn_icd.json
+export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/lvp_icd.json
+export GPG_TTY=$(tty)
+
+# if [ -z "$ZELLIJ" ]; then
+#     if zellij list-sessions 2>/dev/null | grep -q "main"; then
+#         zellij attach main
+#     else
+#         zellij -s main
+#     fi
+# fi

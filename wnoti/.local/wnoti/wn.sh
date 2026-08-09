@@ -19,22 +19,19 @@ function wn() {
     fi
     duration+="$(( elapsed % 60 ))s"
 
-    # local emoji="✅"
-    # [ $st -ne 0 ] && emoji="❌"
-
     wnoti \
-	--profile "default" \
-        --status $st \
-        --title "Task Finished" \
-        "Command: \`$cmd\`
+	    --profile "default" \
+      --status $st \
+      --title "Task Finished" \
+"Command: \`$cmd\`
 Duration: **$duration**
 Exit Status: $st"
 
     wnoti \
-	--profile "slack" \
-        --status $st \
-        --title "Task Finished" \
-        "Command: \`$cmd\`
+	    --profile "slack" \
+      --status $st \
+      --title "Task Finished" \
+"Command: \`$cmd\`
 Duration: $duration
 Exit Status: $st"
 }

@@ -139,3 +139,5 @@ addpatha () {
 }
 
 addpatha ~/.xmake/bin
+
+complete -C /usr/bin/nomad nomad
