@@ -21,6 +21,12 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- map("n", "<leader>qq", ":BufDel<CR>", { noremap = true })
 -- map("n", "<leader>qo", ":BufDelOthers<CR>", { noremap = true })
 map("n", "<leader><BS>", ":Bdel<CR>", merge(silent, { desc = "Delete buffer" }))
+-- map(
+--   "n",
+--   "<leader><BS>",
+--   ":BufferLinePickClose<CR>",
+--   merge(silent, { desc = "Delete buffer" })
+-- )
 
 -- previous / next buffer
 -- map("n", "<S-tab>", ":bp<CR>", merge(silent, { desc = "Previous buffer" }))

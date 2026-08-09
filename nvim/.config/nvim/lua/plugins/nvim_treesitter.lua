@@ -8,12 +8,14 @@ local options = {
     "cpp",
     -- "fish",
     "glsl",
+    "gn",
     "go",
     -- "gomod",
     -- "gosum",
     -- "gotmpl",
     -- "gowork",
     -- "haskell",
+    "hlsl",
     "javascript",
     "lua",
     "luadoc",
@@ -23,6 +25,7 @@ local options = {
     "printf",
     "python",
     "rust",
+    "slang",
     "toml",
     "typescript",
     "vim",
@@ -42,6 +45,15 @@ vim.filetype.add({
   extension = {
     al = "alcy",
     alcf = "alcy_config",
+  },
+})
+
+vim.filetype.add({
+  extension = {
+    gni = "gn",
+  },
+  filename = {
+    ["BUILD.gn"] = "gn",
   },
 })
 

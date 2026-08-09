@@ -4,6 +4,7 @@ require("conform").setup({
     lua = { "stylua" },
     c = { "clang-format" },
     cpp = { "clang-format" },
+    gn = { "gn" },
     go = { "gofumpt", "goimports-reviser", "golines" },
     java = { "lsp" },
     python = { "isort", "black" },
