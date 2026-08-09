@@ -45,7 +45,8 @@ map(
 )
 map("n", "<leader>qf", vim.diagnostic.open_float, { desc = "Open float" })
 map("n", "K", function()
-  vim.lsp.buf.hover({ border = "rounded" })
+  -- vim.lsp.buf.hover({ border = "rounded" })
+  require("pretty_hover").hover()
 end, { desc = "LSP hover" })
 
 -- map("n", "<leader>qr", vim.lsp.buf.references, { desc = "LSP references" }) grr

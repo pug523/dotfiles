@@ -37,6 +37,8 @@ opt.laststatus = 3
 opt.wrap = false
 opt.linebreak = false
 
+opt.foldmethod = "manual"
+
 g.loaded_python3_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_node_provider = 0

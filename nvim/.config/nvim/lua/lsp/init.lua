@@ -17,7 +17,9 @@ local function on_attach(client, bufnr)
   -- map("n", "gi", lsp.buf.implementation, opts)
   -- map("n", "gD", lsp.buf.declaration, opts)
   -- map("n", "gr", lsp.buf.references, opts)
-  map("n", "K", buf.hover, opts)
+
+  -- use pretty hover
+  -- map("n", "K", buf.hover, opts)
   map("n", "gd", buf.definition, opts)
   map("n", "gD", buf.declaration, opts)
   map("n", "gi", buf.implementation, opts)

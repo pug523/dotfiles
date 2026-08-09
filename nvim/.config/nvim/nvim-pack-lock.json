@@ -192,6 +192,10 @@
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
+    "pretty_hover": {
+      "rev": "934df974ef6158b100fe910e8556e6c4a66614c2",
+      "src": "https://github.com/Fildo7525/pretty_hover"
+    },
     "smart-splits.nvim": {
       "rev": "78b9d3bd21fe479690ae5e08a1bf3602698466d8",
       "src": "https://github.com/mrjones2014/smart-splits.nvim"
