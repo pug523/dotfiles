@@ -23,12 +23,44 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader><BS>", ":Bdel<CR>", merge(silent, { desc = "Delete buffer" }))
 
 -- previous / next buffer
-map("n", "<S-tab>", ":bp<CR>", merge(silent, { desc = "Previous buffer" }))
-map("n", "<tab>", ":bn<CR>", merge(silent, { desc = "Next buffer" }))
+-- map("n", "<S-tab>", ":bp<CR>", merge(silent, { desc = "Previous buffer" }))
+-- map("n", "<tab>", ":bn<CR>", merge(silent, { desc = "Next buffer" }))
+map(
+  "n",
+  "<S-tab>",
+  ":BufferLineCyclePrev<CR>",
+  merge(silent, { desc = "Previous buffer" })
+)
+map(
+  "n",
+  "<tab>",
+  ":BufferLineCycleNext<CR>",
+  merge(silent, { desc = "Next buffer" })
+)
+
+map("n", "<leader>ff", function()
+  require("telescope.builtin").find_files()
+end, { desc = "Telescope Find Files" })
+
+map("n", "<leader>fr", function()
+  require("telescope.builtin").oldfiles()
+end, { desc = "Telescope Recent Files" })
+
+map("n", "<leader>fb", function()
+  require("telescope.builtin").buffers()
+end, { desc = "Telescope Open Buffers" })
+
+map("n", "<leader>fh", function()
+  require("telescope.builtin").help_tags()
+end, { desc = "Telescope Help Tags" })
 
 map("n", "<leader>fg", function()
+  require("telescope.builtin").live_grep()
+end, { desc = "Telescope Live Grep" })
+
+map("n", "<leader>fa", function()
   require("telescope").extensions.live_grep_args.live_grep_args()
-end, { desc = "Live Grep with Args" })
+end, { desc = "Telescope Live Grep with Args" })
 
 -- LSP
 map(

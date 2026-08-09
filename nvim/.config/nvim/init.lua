@@ -2,7 +2,7 @@ if vim.loader then
   vim.loader.enable()
 end
 
-local setup_async = true
+local setup_async = false
 
 require("options")
 

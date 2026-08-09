@@ -32,6 +32,7 @@ opt.completeopt = {
 }
 
 opt.termguicolors = true
+opt.pumblend = 15
 opt.laststatus = 3
 
 opt.wrap = false

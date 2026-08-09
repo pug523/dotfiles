@@ -1,12 +1,13 @@
-vim.cmd("highlight NormalFloat guifg=#ded6d5 guibg=NONE")
-vim.cmd("highlight FloatBorder guifg=#e3dcdc guibg=NONE")
-
 require("vim._core.ui2").enable({})
 
 local function carbonfox()
   vim.pack.add({ "https://github.com/edeneast/nightfox.nvim" })
   local nightfox = require("nightfox")
-  nightfox.setup({})
+  nightfox.setup({
+    options = {
+      transparent = true,
+    },
+  })
   -- nightfox.compile()
   local scheme = "carbonfox" -- duskfox, nordfox, terafox, carbonfox
   vim.cmd("colorscheme " .. scheme)
@@ -45,3 +46,9 @@ local function github_dark()
 end
 
 carbonfox()
+
+-- vim.cmd("highlight NormalFloat guifg=#ded6d5 guibg=NONE")
+-- vim.cmd("highlight FloatBorder guifg=#e3dcdc guibg=NONE")
+
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
