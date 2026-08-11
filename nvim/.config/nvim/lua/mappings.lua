@@ -17,10 +17,10 @@ map("i", "jk", "<esc>")
 -- no highlight search
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- bufdel
+-- bufdel (currently defined in snacks configuration)
 -- map("n", "<leader>qq", ":BufDel<CR>", { noremap = true })
 -- map("n", "<leader>qo", ":BufDelOthers<CR>", { noremap = true })
-map("n", "<leader><BS>", ":Bdel<CR>", merge(silent, { desc = "Delete buffer" }))
+-- map("n", "<leader><BS>", ":Bdel<CR>", merge(silent, { desc = "Delete buffer" }))
 -- map(
 --   "n",
 --   "<leader><BS>",
@@ -43,6 +43,10 @@ map(
   ":BufferLineCycleNext<CR>",
   merge(silent, { desc = "Next buffer" })
 )
+
+map("n", "<space>fmt", function()
+  vim.lsp.buf.format({ async = true })
+end, { desc = "Format current buffer" })
 
 map("n", "<leader>ff", function()
   require("telescope.builtin").find_files()
@@ -125,11 +129,11 @@ map("n", "[d", function()
   vim.diagnostic.jump({ count = -1, float = true })
 end, silent)
 map("n", "]d", function()
-  vim.diagnostic.jump({ count = -1, float = true })
+  vim.diagnostic.jump({ count = 1, float = true })
 end, silent)
 
 map("n", "<leader>;", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
 end, silent)
 
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", silent)
@@ -153,7 +157,7 @@ map("n", "<leader>ql", function()
 end)
 
 -- stop Persistence => session won't be saved on exit
-map("n", "<leader>qd", function()
+map("n", "<leader>qx", function()
   require("persistence").stop()
 end)
 
@@ -161,7 +165,7 @@ end)
 map("n", "<A-d>", '<cmd>lua require("dapui").toggle()<CR>', silent)
 
 local function compare_to_clipboard()
-  local ftype = vim.api.nvim_eval("&filetype")
+  local ftype = vim.bo.filetype
   vim.cmd(string.format(
     [[
     vsplit
