@@ -53,6 +53,10 @@ map("n", "<leader>ff", function()
 end, { desc = "Telescope Find Files" })
 
 map("n", "<leader>fr", function()
+  require("telescope.builtin").resume()
+end, { desc = "Telescope Resume Last Search" })
+
+map("n", "<leader>fR", function()
   require("telescope.builtin").oldfiles()
 end, { desc = "Telescope Recent Files" })
 
