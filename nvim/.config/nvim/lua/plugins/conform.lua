@@ -9,6 +9,7 @@ require("conform").setup({
     java = { "lsp" },
     python = { "isort", "black" },
     rust = { "rustfmt" },
+    toml = { "taplo" },
     zig = { "zigfmt" },
   },
 

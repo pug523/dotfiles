@@ -17,7 +17,7 @@ function setup()
       ["<CR>"] = { "accept", "fallback" },
 
       ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-      ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+      ["<S-Tab>"] = { "select_prev", "snippet_backward", "show", "fallback" },
 
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
@@ -33,7 +33,7 @@ function setup()
       },
       list = {
         selection = {
-          preselect = false,
+          preselect = true,
           auto_insert = false,
         },
       },

@@ -141,6 +141,12 @@ map("n", "<leader>;", function()
 end, silent)
 
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", silent)
+vim.keymap.set(
+  "n",
+  "<leader>nf",
+  "<cmd>NvimTreeFindFile<CR>",
+  { desc = "Locate current file in nvim-tree" }
+)
 
 -- Toggle terminal
 -- map("n", "<C-t>", "<cmd>split term://zsh<CR>", silent)
@@ -185,3 +191,7 @@ local function compare_to_clipboard()
 end
 
 map("n", "<leader>bc", compare_to_clipboard, { desc = "Compare to clipboard" })
+
+map({ "n", "o", "x" }, "gw", "<cmd>lua require('spider').motion('w')<CR>")
+map({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('e')<CR>")
+map({ "n", "o", "x" }, "gb", "<cmd>lua require('spider').motion('b')<CR>")

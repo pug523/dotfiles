@@ -48,5 +48,6 @@ require("lsp.clangd")
 require("lsp.glsl_analyzer")
 require("lsp.jdtls")
 require("lsp.lua_ls")
+require("lsp.rust_analyzer")
 
 lsp.enable(lsp_servers)
