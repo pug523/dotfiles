@@ -186,8 +186,8 @@ export FZF_CTRL_T_OPTS="--preview 'bat --border=rounded --color=always --line-ra
 
 # alias vim='nvim'
 
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/usr/local/sbin"
 # export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
 export DISPLAY=":0"
 export TIMEFMT="%J: %*Es total (%P cpu) - max RSS %M KB"
